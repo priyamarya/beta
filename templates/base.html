@@ -1,0 +1,43 @@
+<!--DOCTYPE html-->
+{%load staticfiles%}
+
+<html>
+	<head><title>Sightnext</title>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+	{% include "css.html" %}
+	
+
+
+
+	</head>
+
+
+
+	<body>
+	
+		{%include "navbar.html"%}
+
+
+		
+		
+
+		{% block content%}
+		{% endblock content %}
+
+
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/bootstrap-select.min.js"></script>	
+	{% include 'js.html'%}
+	{% include 'base_ajax.html'%}
+	</body>
+
+
+
+
+
+
+
+</html>
+

@@ -1,0 +1,14 @@
+{% extends "base.html"%}
+{%load crispy_forms_tags%}
+{%block content%}
+{{title}}
+<div class = ="container">
+	<div class = "col-md-4">
+		<form method='POST'>{%csrf_token%}
+			{{form|crispy}}
+			<input type="submit" value="submit">
+		</form>
+	</div>
+</div>
+
+{% endblock content%}

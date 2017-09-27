@@ -1,0 +1,23 @@
+{% extends "base.html"%}
+{% load staticfiles %}
+{% block content%}
+
+<div class="conainer" style="margin:20px;">
+
+<div><h1>{{message}}</h1>
+	{%if papers%}
+		{% for paper in papers%}
+		<h4>{{ paper.title }}</h4>
+	
+		{%endfor%}
+		<h2>Your adress for delivery is :</h2> <h3>{{address}}</h3>{{start_date}}
+		<a href="{% url 'editsubscription'%}">edit</a>
+	{%else%}
+	 <a href="{% url 'subscribe'%}"> Subscribe now!! </a>
+	 {%endif%} 
+	
+	
+</div>
+</div>
+
+{%endblock%}

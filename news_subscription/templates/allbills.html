@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content%}
+	<div class="container-fluid">
+		<h1> Your bills are as follows</h1>
+		<div class="container">
+			{% for paper in queryset %}
+				<h2>{{paper.title}} : {% widthratio days 1 paper.price%}</h2>
+			{%endfor%}
+			<h1>total bill: {{bill}}</h1>
+		</div>
+	</div>
+{% endblock content %}

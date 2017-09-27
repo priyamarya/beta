@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block content %}
+{{message}}
+<div class= 'container'>
+	<div class='col-md-4'>
+		{% if user %}
+					<h1>One user is alredy logged in.. Please logout first</h1>
+					<a class="btn btn-primary" href='{%url "logout"%}' role="button" >Logut</a>
+			{%else%}
+			<form class="form" method="POST">
+				{% csrf_token %}
+				<h2>Enter your details</h2>
+				<label class="sr-only">Name</label>
+				<input class = "text" class='form_control' placeholder= 'name' name='u_name' required autofocus>
+				<br><br>
+				<label class="sr-only">Mobile No.</label>
+				<input class = "integer" class="form_control" id= 'mob_no' placeholder="mob_no" name="mobile" required autofocus>
+				<br><br>
+				
+				<label class= "sr-only">E-mail Id</label>
+				<input type="email" class="form_control" placeholder="email" name = "email" id="user_email" required autofocus>
+				<br><br>
+				<label class="sr-only">Address</label>
+				<input type="text" name="address" placeholder= "your address" class="form_control" id="address" required autofocus>
+				<br><br>
+				<label class = "sr-only">Password</label>
+				<input type="password" name="password1" placeholder="enter your password" id="password" class="form_control" required autofocus>
+				<br><br>
+				<label class="sr-only">Again Password</label>
+				<input type="password" name="password2" placeholder="again type password" id="password" class="form_control" required autofocus>
+				<br><br>
+				<button type="submit">Sign up</button>	
+			</form>
+			{%endif%}
+	</div>
+
+</div>
+
+{% endblock content %}

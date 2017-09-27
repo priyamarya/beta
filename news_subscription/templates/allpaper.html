@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{%block content %}
+		{% if length is not None %}
+			{% for paper in querylist %}
+
+			<a href="{% url 'paperbill' paper %}">{{paper}} </a><br>
+			{%endfor%}
+		{%else%}
+			<h1>Please subscribe for a newspaper first</h1>
+		{%endif%}
+{% endblock%}

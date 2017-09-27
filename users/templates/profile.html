@@ -1,0 +1,22 @@
+{% extends "base.html"%}
+{% load staticfiles %}
+{% block content%}
+
+<div class="conainer-fuid" style="margin:20px;font-size: 30px;text-align: center">
+<b>{{ name }}</b>
+<div class="container" style="background:#2196f3;border-radius: 10px;font-size: 22px;line-height: 1.7;
+">
+	<img src="/media/{{ pic }}" style="float:right;border-radius: 20%;" />
+	
+	Sex : {{ sex }}<br>
+	Email Id : {{ email }}<br>
+	Username : {{ username }}<br>
+	Contact No. : {{ contact_no }}<br>
+	Address :  {{ address }}<br>
+	Joining Date : {{ joining_date }}<br>
+</div>
+	<br><a href="{% url 'edit_profile' request.user.username %}" class="btn btn-default" style="width:200px;">Edit</a>
+
+</div>
+
+{%endblock%}
