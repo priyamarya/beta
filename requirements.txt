@@ -1,0 +1,12 @@
+adium-theme-ubuntu==0.3.4
+decorator==4.0.6
+Django==1.10.6
+gyp==0.1
+ipdb==0.10.1
+ipython==2.4.1
+pexpect==4.2.0
+ptyprocess==0.5.1
+simplegeneric==0.8.1
+ubuntuone-client-data==14.4
+unity-lens-photos==1.0
+virtualenv==15.1.0
