@@ -41,7 +41,10 @@ INSTALLED_APPS = [
     'newspapers',
     'multiselectfield',
     'news_subscription',
-    'crispy_forms'
+    'crispy_forms',
+    'Vendor',
+    'user_vendor',
+    'contact',
 ]
 CRISPY_TEMPLATE_PACK = "bootstrap3"
 MIDDLEWARE = [
@@ -104,13 +107,20 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Email description
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'priyamaryasn@gmail.com'
+EMAIL_HOST_PASSWORD = 'mayusmina'
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 

@@ -1,23 +1,32 @@
-{% block navbar %}
+{% load staticfiles	 %}
 
 
-<div class="masthead container-fluid" style= "background: #1f272a; border-radius: 0 0 5px 5px">
-        <h3 class="text-muted" style="text-align: center;vertical-align: middle">Sightnext</h3>
-        <nav>
-          <span>Menu</span>
-          <ul class="nav nav-justified">
-            <li class="active"><a href="{%url 'home'%}">Home</a></li>
-            <li><a href="#">Projects</a></li>
-            <li><a href="#">Services</a></li>
-            <li><a href="#">Downloads</a></li>
-            {% if request.user.username%}
-            <li><a href="/users/logout/">LogOut</a></li>
+
+<nav class="navbar navbar-expand-lg navbar-dark colr ">
+      
+      <div class="container">
+        <a href="{% url 'home' %}" class="navbar-brand" style="float: left"><img  src='{% static "logo/logo black.jpg" %}' style="width:50px;height:50px;border-radius:5px"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample07" aria-controls="navbarsExample07" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse main_nav" id="navbarsExample07">
+          <ul class="navbar-nav" style="margin-left: auto">
+            <li><a class="nav-link {% if nbar == 'home' %}active{% endif %}" href="{% url 'home' %}" >Home</a></li>
+            <li><a class="nav-link {% if nbar == 'about' %}active{% endif %}" href="{% url 'about' %}" >About Us</a></li>
+            <li><a class="nav-link {% if nbar == 'contact' %}active{% endif %}" href="{% url 'contact' %}">Contact Us</a></li>
+            <li><a class="nav-link {% if nbar == 'workwithus' %}active{% endif %}" href="{% url 'workwithus' %}">Work With Us</a></li>
+            <li><a class="nav-link {% if nbar == 'faqs' %}active{% endif %}" href="{% url 'faqs' %}">FAQs</a></li>
+            {% if request.user.username %}
+            <li><a class="nav-link {% if nbar == 'account' %}active{% endif %}" href="{% url 'subscription' %}" >My Acccount</a></li>
             {% else %}
-            <li><a href="/users/login/" method="POST">LogIn</a></li>
-            <li><a href="/users/register/">SignUp</a></li>
-            {%endif%}
+            <li><a class="nav-link {% if nbar == 'signin' %}active{% endif %}" href="{% url 'signup' %}">SignIn/Register</a></li>
+            {% endif %}
           </ul>
-          
-        </nav>
+        </div>
       </div>
-{% endblock navbar %}
+    </nav>
+
+
+
+

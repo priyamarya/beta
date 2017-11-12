@@ -7,7 +7,7 @@ urlpatterns = [
 	url(r'^edit/$', editsubscription, name='editsubscription'),
 	url(r'^bill/$', Bill, name='bill'),
 	url(r'^bill/(?P<paper>[\w -]+)/$', paperbill, name='paperbill'),
-	url(r'^allpapers/$', allpapers, name='allpapers'),
+	url(r'^account/$', allpapers, name='account'),
 	url(r'^allbills/$', allbills, name='allbills'),
 
 ]

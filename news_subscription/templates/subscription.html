@@ -1,23 +1,84 @@
-{% extends "base.html"%}
+{% extends "account.html"%}
 {% load staticfiles %}
-{% block content%}
+{% block data%}
+
+
+<div class="" style="padding:20px">
+	<div style="text-align: center;">
+		<div class="row">
+			<div class="col-md-2 d-none d-md-block d-sm-none hit_heading"><div class="hit_heading_content">Order Id</div></div>
+			<div class="col-md-4 col-6 hit_heading"><div style="margin:auto;">
+				Name</div>
+			</div>
+			<div class="col-md-2 col-0 d-none d-md-block hit_heading"><div class="hit_heading_content">
+				Start Date</div>
+			</div>
+			<div class="col-md-2 col-0 d-none d-md-block hit_heading"><div class="hit_heading_content">
+				Status</div>
+			</div>
+			<div class="col-md-2 col-6 hit_heading"><div style="margin:auto;">
+				Bill</div>
+			</div>
+			 
+		</div> 
+		<div class="row"> 
+			{%if papers%}
+			{% for paper in papers%}
+				
+				<div class="col-md-2 col-0 d-none d-md-block hit"><div style="margin:auto;"></div></div>
+				<div class="col-md-4 col-6 hit"><div style="margin:auto;">{{ paper.title }}</div></div>
+				<div class="col-md-2 col-0 d-none d-md-block hit"><div style="margin:auto;">{{start_date}}</div></div>
+				<div class="col-md-2 col-0 d-none d-md-block hit"><div style="margin:auto;"></div></div>
+				<div class="col-md-2 col-6 hit"><div class="row" style="margin:auto">
+					
+						<div class="col-md-8 col-8 col-sm-8">&#8377 {% widthratio days 1 paper.price%}</div>
+						<div class="col-md-4 col-4 col-sm-4" style=""><button class="btn btn-lg btn-success bill_bt" href="" role="button" style="" >pay</button></div>
+				</div></div>
+			{%endfor%}
+			{% endif %}
+			
+			 
+		</div> 
+		
+		<div class="row">
+			<div class="col-md-10 hit"><div style="margin:auto;"> Total</div></div>
+			<div class="col-md-2 hit"><div style="margin:auto;"></div></div>
+			
+			
+		</div>
+	</div>
+</div>
+
+{%endblock data%}
+
 
 <div class="conainer" style="margin:20px;">
 
-<div><h1>{{message}}</h1>
-	{%if papers%}
-		{% for paper in papers%}
-		<h4>{{ paper.title }}</h4>
-	
-		{%endfor%}
-		<h2>Your adress for delivery is :</h2> <h3>{{address}}</h3>{{start_date}}
+<div>
+	<div style="background-color: #52658f;padding:0px 10px">
+		<h3 class="data_data">{{message}}</h3>
+	</div>
+	<div style="margin:20px;">
+		{%if papers%}
+			{% for paper in papers%}
+				<h5>{{ paper.title }}</h5>
+			{%endfor%}
+	</div>
+	<div style="background-color: #52658f;padding:0px 10px">
+		<h3 class="data_data">Your adress for delivery is</h3> 
+	</div>	
+	<div style="margin: 20px;">
+		<h3>{{address}}</h3>
+		{{start_date}}
 		<a href="{% url 'editsubscription'%}">edit</a>
+	</div>
 	{%else%}
-	 <a href="{% url 'subscribe'%}"> Subscribe now!! </a>
-	 {%endif%} 
+	
+	<div style="margin:20px;">
+		<a href="{% url 'subscribe'%}"> Subscribe now </a>
+	</div>
+	{%endif%} 
 	
 	
 </div>
 </div>
-
-{%endblock%}

@@ -1,18 +1,18 @@
-{% extends "base.html"%}
+{% extends "account.html"%}
 
 {% load crispy_forms_tags %}
-{% block content%}
+{% block data%}
 <div class="container-fluid" style="text-align: center">
-	<h1><u>{{title}}</u></h1> 
-	<div class="container" style="text-align: left;background:grey;border-radius: 10px">
+	
+	<div class="container" style="text-align: left;border-radius: 10px">
 		<div class="col-sm-4 col-md-6">
 			<br>
 			<form method="POST" enctype="multipart/form-data">{%csrf_token%}
 				{{form|crispy}}
-				<input type="submit" class="btn bth-default" name="" value="update">
+				<input type="submit" class="btn btn-primary " name="" value="update" style="width:100%">
 			</form>
 		</div>
 	</div>
 </div>
 
-{% endblock content%}
+{% endblock data%}

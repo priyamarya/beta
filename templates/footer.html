@@ -1,0 +1,82 @@
+{%load staticfiles%}
+<div class="footer" style="background-color: grey;box-shadow: 0 0 1px grey;position:relative;">
+	<div class="container" style="">
+		<div class="row">
+			<div class="col-md-4" style="height: 325px;text-align:center">
+				<div class="heading-footer1" style="">
+					<h4 style="color: #fff;">
+						Papers
+					</h4>
+				</div>
+				<div>
+					<p>The Time Of India<br>
+						Hindustan Times<br>
+						Navbharat Times<br>
+						Business Standard<br>
+						Employment News<br>
+						The Hindu<br>
+						Devbhoomi<br>
+						<a href="{% url 'all_newspapers' %}"><u>and more ...</u></a>
+					</p>
+
+				</div>
+			</div>
+			<div class="col-md-4" style="height: 325px">
+				<div class="heading-footer1" style="text-align:center;">
+					<h4 style="color: #fff;">
+						Be a part of the Tradition
+					</h4>
+				</div>
+				<div> 
+					<p>Don't miss any opportunity to access offers and updates from us.</p>
+				</div>
+				<div>
+					<div>{% include 'newsletter_form.html' %}</div>
+					
+				</div>
+			</div>
+			<div class="col-md-4" style="height: 325px;text-align:center">
+				<div class="heading-footer1">
+					<h4 style="color: #fff;">
+						Facebook
+					</h4>
+				</div>
+				<div class="fb-page" data-href="https://www.facebook.com/sightnext/" data-tabs="timeline" data-width="450" data-height="220" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/sightnext/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/sightnext/">Sightnext</a></blockquote></div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="footer" style="background-color: #333;box-shadow: 0 0 1px #333;position:relative;">
+	<div class="container" style="padding:5px 0">
+		<div class="row" style="margin: 0px 0px;">
+			<div class="col-md-8 col-sm-8">
+				<div class="row second-footer" style="font-size: 15px;color: #fff;">
+					
+						<ul>
+							<li><a href="{% url 'privacy' %}">Privacy Policy</a></li>
+							<li><a href="{% url 'contact'%}">Contact Us</a></li>
+							<li><a href="{% url 'all_newspapers' %}">Newspapers</a></li>
+							<li><a href="">services</a></li>
+							<li><a href="">terms and conditions</a></li>
+						</ul>
+					
+				</div>
+				<div class="row " style="font-size: 15px;color: #fff;">
+					<div style=" padding: 4px 0px;">
+						<p style="margin-top: 0px;">&copy2017 | Sightnext Informatics Pvt. Ltd.</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4 col-sm-4" style="text-align: right;display:flex;">
+				<div style="margin:auto 0px auto auto ">
+					<ul style="color:#fafafa"	>
+						<li><a href="https://www.facebook.com/sightnext/" target=blank><i class="fa fa-facebook-square fa-2x" aria-hidden="true"></i></a></li>
+						<li><a href="https://in.linkedin.com/company/sightnext-pvt.ltd." target=blank><i class="fa fa-linkedin-square fa-2x" aria-hidden="true"></i></a></li>
+						<li><a href="https://twitter.com/sightnext" target=blank><i class="fa fa-twitter-square fa-2x" aria-hidden="true"></i></a></li>
+						<li><a href="https://instagram.com/sightnext" target=blank><i class="fa fa-instagram fa-2x" aria-hidden="true"></i></a></li>
+					</ul>
+				</div>
+			</div>
+		</div>	
+	</div>
+</div>

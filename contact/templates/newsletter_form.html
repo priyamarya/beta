@@ -1,0 +1,6 @@
+<form action="{% url 'newsletter' %}" method="POST">
+	{% csrf_token %}
+	<label  class="sr-only">email</label>
+	<input type="email" id="inputEmail" class="form-control" placeholder="E-mail" name="recipent" required >	
+	<input type='submit' href="{% url 'newsletter' %}" class=" sub btn btn-lg btn-success btn-custom" role="button" value="Subscribe" style="width:100%">
+</form>

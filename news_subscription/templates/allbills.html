@@ -1,12 +1,18 @@
-{% extends "base.html" %}
-{% block content%}
+{% extends "account.html" %}
+{% block data%}
 	<div class="container-fluid">
-		<h1> Your bills are as follows</h1>
-		<div class="container">
-			{% for paper in queryset %}
-				<h2>{{paper.title}} : {% widthratio days 1 paper.price%}</h2>
-			{%endfor%}
-			<h1>total bill: {{bill}}</h1>
+		<div style="background-color: #52658f;padding:0px 10px">
+			<h3 class="data_data"> Your bills are as follows</h3>
+		</div>
+		<div class="">
+			<div style="margin:20px">
+				{% for paper in queryset %}
+					<h5>{{paper.title}} : {% widthratio days 1 paper.price%}  (for {{days}}days)</h5>
+				{%endfor%}
+			</div>
+			<div style="background-color: #52658f;padding:0px 10px">
+				<h3 class="data_data">total bill: {{bill}}</h3>
+			</div>
 		</div>
 	</div>
-{% endblock content %}
+{% endblock data %}

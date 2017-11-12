@@ -1,53 +1,88 @@
-{% extends "base.html"%}
-{% block content %}
-<div class="container-fluid ">
-<div style="height:10em;background-color: #1f272a;"></div><br>
-</div>
-<div class="container-fluid ">
-	<div class="panel panel-default">
-		  <div class="panel-heading" style="text-align: center;">
-		    Account Information
-		  </div>
+{% extends "base.html" %}
+{% load staticfiles%}
+{% block homecontent %}
+<div class="container">
+	<div class="site_head col-md-12 sol-sm-12 gap"  >
+		<div class="site_head_child" >
+			
+				<h1 style="font-weight: bold; font-size: 45px;color:#f7f5e6;">Hello. We are Sightnext.</h1>
+				<span class="sub_head">We provide a smarter and better way to get your daily newspaper without any hassles and worries.</span>
+				{% if request.user.username %}
+					<p style="margin-top: 0px"><a class="btn btn-lg btn-success" href="{% url 'account' %}" role="button">My account</a></p>	
+				{%else%}
+					<p style="margin-top: 0px"><a class="btn btn-lg btn-success" href="{% url 'signup' %}" role="button">Get Started</a></p>
+				{% endif %}
+				
+		</div>
 	</div>
 </div>
-<div class="container-fluid ">
-	
-  	<div class=" col-md-3" style="border: 2px solid #ddd; border-radius: 5px">
-	  	<ul class="nav nav-stacked left-nav">
-		  	<li role="presentation" class="active"><a href="{% url 'profile' request.user.username%}"><span class="glyphicons glyphicons-menu-hamburger"></span>Profile</a></li>
-		  	<li role="presentation"><a href="{% url 'edit_profile' request.user.username%}">edit profile</a></li>
-		  	<li role="presentation"><a href="{% url 'subscription' %} ">subscription</a></li>
-		  	<li role="presentation"><a href="{% url 'allbills' %}">Bill</a></li>
-		  	<li role="presentation"><a href="#">Bill Payment</a></li>
-		  	<li role="presentation"><a href="#">Offers</a></li>
-		  	<li role="presentation"><a href="#">Refer to Friend</a></li>
-		  	<li role="presentation"><a href="#">Porta ac consectetur ac</a></li>
-		  	<li role="presentation"><a href="#">Logout</a></li>
-		</ul>
-  	</div>
-
-	<div class="col-md-9" style="background-color: white; height:416px; border: 2px solid #ddd; border-radius: 5px" id="blockframe">
-		
+<div class="container">
+	<div class="about-section para gap">
+		<div class="col-md-12 col-sm-12" >
+			<div style="background-color: rgba(255, 255, 255, 0.62); border-radius:5px;padding:5px">
+				<div class="col-md-12">
+					<h2> About Us </h2>
+					<div style="text-align: center;">
+						<p style="">
+							We are here for a change.<br>We provide an easy and efficient way to manage your newspaper subscription.<br> We have an inclusive list of national and regional newspapers, that you can choose from to be delivered at your doorsteps.<br> We have a flexible system that allows you to cancel or order additional newspapers for any duration.<br> And you can pay for these <br> Anytime, Anywhere - as per your convenience.
+					
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
-</div><br>
-
-
-<div class="container-fluid ">
-	<div style="height:10em;background-color: #1f272a;">a</div>
+</div>
+<div class="container">
+	<div style="margin-top: 2em;">
+		<div class="col-md-12 col-sm-12 gap">
+			<div style="background-color: rgba(255, 255, 255, 0.62); border-radius:5px;padding:5px">
+				<div class="col-md-12">
+					<h2>Assistance</h2>
+					<p class="para">That is why we provide a no of ways in which we can help you to get to know us. From subscription of first newspaper to modifying your weekly plan. We are here for help and just a step away.</p>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
+	<div class="container">
+		<div class="site_head col-md-12">
+			<div class="site_head_child">
+				<div>
+					<h4>Let Us Help You</h4>
+					<p style="color:#0f1626;">Do let us know how we can help you. Please feel free to email us with your issue as the subject line or give us a call at anytime, any day. ( the details are in the contact section )</p>
+					<form>
+						<input  id="contact-no" type="text" name="contact" placeholder="Enter your contact no." >
+						<button type="submit" class="btn btn-lg btn-success btn-custom" name="request-contact">Request Contact</button>	
+				</div>
+			</div>
+		</div>
+	</div>
 
-{% endblock content %}
 
-	<div class="list-group col-md-3 padr" style="border: 1px solid #ddd">
-  <a href="#" class="list-group-item">Profile</a>
-  <a href="#" class="list-group-item">Modify Subscription</a>
-  <a href="#" class="list-group-item">Subscribed Newspaper</a>
-  <a href="#" class="list-group-item">Bill</a>
-  <a href="#" class="list-group-item">Bill Payment</a>
-  <a href="#" class="list-group-item">Offers</a>
-  <a href="#" class="list-group-item">Refer to Friend</a>
-  <a href="#" class="list-group-item">Porta ac consectetur ac</a>
-  <a href="#" class="list-group-item">Logout</a>
+<div class="container" >
+	<div class=" row container marketing gap" style="margin-left:0px;">
+		<!-- Three columns of text below the carousel -->
+			
+				<div class="col-lg-4 mid" style="background-color: rgba(255, 255, 255, 0.46);">
+				 
+				  <h4>Cashback & offers</h4>
+				  <p class="para">Exciting offers to gain double the value you pay and much more with stipulated discount on every newspaper.<br>
+				  	<br><br><br></p>
+				  <p><a class="gap btn btn-lg btn-success btn-custom" href="#" role="button">View details &raquo;</a></p>
+				</div><!-- /.col-lg-4 -->
+				<div class="col-lg-4 mid" style="background-color: rgba(255, 255, 255, 0.52);">
+				  <h4>Online payment</h4>
+				  <p class="para">No more waiting for your local vendor to pay the bill. Just pay the bill wherever and whenever you want with variety of online payment options.<br><br><br></p>
+				  <p><a class="gap btn btn-lg btn-success btn-custom" href="#" role="button">View details &raquo;</a></p>
+				</div><!-- /.col-lg-4 -->
+				<div class="col-lg-4 mid" style="background-color: rgba(255, 255, 255, 0.46);">
+				  <h4>Work with us</h4>
+				  <p class="para">We are providing a holistic solution to newspaper industry, which till date is either not available or scattered in bits and pieces. If you want to work with us feel free to contact us.<br><br></p>
+				  <p><a class="gap btn btn-lg btn-success btn-custom" href="{% url 'workwithus' %}" role="button">View details &raquo;</a></p>
+				</div>
+			<!-- /.row -->
+	</div>
 </div>
-</div>
+{% endblock homecontent %}

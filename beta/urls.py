@@ -19,13 +19,29 @@ from django.conf import settings
 from django.conf.urls.static import static
 import home.views
 import users.views
+import contact.views
+import newspapers.views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^users/',include('users.urls')),
-    url(r'^subscribe/',include('news_subscription.urls')),
+    url(r'^details/',include('news_subscription.urls')),
+    url(r'^vendor/',include('user_vendor.urls')),
     url(r'^$',home.views.Home, name="home"),
     url(r'^explore/$',home.views.Home2, name="home2"),
+    url(r'^contact-us$', home.views.contact, name="contact"),
+    url(r'^faqs$', home.views.faqs, name="faqs"),
+    url(r'^accounts$', home.views.account, name="account"),
+    url(r'^about$', home.views.about, name="about"),
+    url(r'^workwithus$', home.views.workwithus, name="workwithus"),
+    url(r'^privacy-policy$',home.views.privacy, name="privacy"),
+    url(r'^welcome/$',home.views.welcome, name="welcome"),
+    url(r'^dummy/$',home.views.dummy, name="dummy"),
+    url(r'^newsletter/$',contact.views.newsletter_entry, name="newsletter"),
+    url(r'^contact/$',contact.views.contact_entry, name="contact_entry"),
+    url(r'^work/$',contact.views.work_entry, name="work"),
+    url(r'^newspapers/$',newspapers.views.all_newspapers, name="all_newspapers"),
+
     
 ]
 

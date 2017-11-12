@@ -3,6 +3,8 @@ from django.utils import timezone
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import RegexValidator
+from django.core.validators import MaxValueValidator, MinValueValidator
+
 
 GENDER_CHOICES = (('Others','Others'), ('Male','Male'),('Female','Female'))
 
@@ -15,7 +17,8 @@ class Users(models.Model):
 	
 	mob_no = models.PositiveIntegerField(
 		null = False,
-		blank = False
+		blank = False,
+		unique=True,
 		)
 
 	email_id = models.EmailField(
@@ -27,8 +30,8 @@ class Users(models.Model):
 		default = timezone.now)
 
 	address = models.TextField(
-		null = False,
-		blank = False
+		null = True,
+		blank = True
 		)
 
 	password = models.CharField(
@@ -62,11 +65,20 @@ class UserInfo(models.Model):
 		choices = GENDER_CHOICES
 		)
 
+	address = models.TextField(
+		null = True,
+		blank = True
+		)
+
+	area_code=models.PositiveIntegerField( validators=[MaxValueValidator(999999),MinValueValidator(100001)],default=100001)
+		
+
 	profile_pic = models.ImageField(
 		upload_to= 'profile_pic',
 		null = True,
 		blank = True
 		)
+
 
 	class Meta:
 		verbose_name = "Users Info"

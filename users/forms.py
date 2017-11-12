@@ -6,6 +6,8 @@ class UserInfoForm(forms.ModelForm):
 		model = UserInfo
 		fields = [
 			'full_name',
+			'address',
+			'area_code',
 			'sex',
 			'profile_pic'
 		]

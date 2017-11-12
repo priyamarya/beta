@@ -5,33 +5,87 @@ from django.template.context_processors import csrf
 from django.utils import timezone
 import datetime
 from django.contrib.auth.decorators import login_required
-from users.models import Users
+from users.models import Users,UserInfo
 from .models import Subscription
 from newspapers.models	 import Newspapers 
 # Create your views here.
 
 @login_required(login_url='/users/login/')
 def Subscribe(request):
-	import ipdb; ipdb.set_trace()
+	#import ipdb; ipdb.set_trace()
+	papers = Newspapers.objects.all()
+	papers_list=[]
+	queryset=Subscription.objects.all()
+	user = request.user
+	user = Users.objects.get(u_name=user)
+	for item in papers:
+		papers_list.append(str(item.title))
 	if request.method == "POST":
 		form = SubscriptionForm(request.POST or None)
-		user = request.user
-		user = Users.objects.get(u_name=user)
+		
+
 		if form.is_valid():
 			instance = form.save(commit=False)
 			instance.sub_user = user
 			instance.start_date = str(datetime.date.today())
 			instance.save()
 			form.save_m2m()
-			
-			context = {
-				'title' : "thhanksss",
-			}
+			if queryset.filter(sub_user=user).exists():
+				instance=Subscription.objects.get(sub_user=user)
+			else:
+				instance=None	
+			if UserInfo.objects.filter(user_link=user).exists():
+				userinfo=UserInfo.objects.get(user_link=user)
+				context = {
+					'title' : "thhanksss",
+					'user':instance,
+					'pic':userinfo.profile_pic,
+					"name":userinfo.full_name,
+					'nbar' : 'account',
+					'papers':papers_list,
+					'abar':'subscription',
+				}
+			else:
+				context = {
+						'title' : "thhanksss",
+						'nbar' : 'account',
+						'user':instance,
+						'papers':papers_list,
+						'abar':'subscription',
+					}
 		else:
-			context={'title': "sorry"}
+			if queryset.filter(sub_user=userr).exists():
+				instance=Subscription.objects.get(sub_user=user)
+			else:
+				instance=None
+			if UserInfo.objects.filter(user_link=user).exists():
+				userinfo=UserInfo.objects.get(user_link=user)
+				context = {
+					'title' : "thhanksss",
+					'user':instance,
+					'pic':userinfo.profile_pic,
+					'title': "sorry",'abar':'subscription',}
+			else:
+				context={'title': "sorry",'abar':'subscription',}
 	else:
-		form = SubscriptionForm()
-		context = {'title':"please fill the form.",'form':form,}
+		form = SubscriptionForm(request.POST or None)
+		if queryset.filter(sub_user=user).exists():
+			instance=Subscription.objects.get(sub_user=user)
+		else:
+			instance=None
+		if UserInfo.objects.filter(user_link=user).exists():
+				userinfo=UserInfo.objects.get(user_link=user)
+				context = {
+					'title' : "<t></t>hanksss",
+					'pic':userinfo.profile_pic,
+					'user':instance,
+					'title':"please fill the form.",
+					'form':form,
+					'nbar' : 'account',
+					'papers':papers_list,
+					}
+		else:
+			context = {'title':"please fill the form.",'form':form,'nbar' : 'account','papers':papers_list}
 		context.update(csrf(request))
 	return render(request,'subscribe.html',context)
 
@@ -39,27 +93,69 @@ def Subscribe(request):
 def subscription(request):
 	#import ipdb; ipdb.set_trace()
 	user=request.user
-	user = Users.objects.get(u_name=user)
+	userr = Users.objects.get(u_name=user)
+	today=datetime.date.today()
 	queryset=Subscription.objects.all()
-	if queryset.filter(sub_user=user).exists():
-		user=Subscription.objects.get(sub_user=user)
+	if queryset.filter(sub_user=userr).exists():
+		user=Subscription.objects.get(sub_user=userr)
 		papers=user.sub_paper.all()
-		context={
-			"papers": papers,
-			"start_date" : user.start_date,
-			"message":"You have subscribed for:-",
-			"address":user.address
+		start=user.start_date
+		days=(today-start).days
 
-		}
+		if UserInfo.objects.filter(user_link=userr).exists():
+			userinfo=UserInfo.objects.get(user_link=userr)
+			context={
+				'pic':userinfo.profile_pic,
+				"name":userinfo.full_name,
+				"papers": papers,
+				"user":user,
+				'days':days,
+				"start_date" : user.start_date,
+				"message":"You have subscribed for",
+				"address":user.address,
+				'nbar' : 'account',
+				'abar':'subscription',
+			}
+		else:
+			context={
+					"papers": papers,
+					"user":user,
+					"days":days,
+					"start_date" : user.start_date,
+					"message":"You have subscribed for",
+					"address":user.address,
+					'nbar' : 'account',	
+					'abar':'subscription',
+				}
 	else:
-		context={
-			'message':"You have not subscribed for any newspaper till now. start your subscription today!!"
-		}
+		if queryset.filter(sub_user=userr).exists():
+			instance=Subscription.objects.get(sub_user=user)
+		else:
+			instance=None
+		if UserInfo.objects.filter(user_link=userr).exists():
+			userinfo=UserInfo.objects.get(user_link=userr)
+			context={
+				'pic':userinfo.profile_pic,
+				"name":userinfo.full_name,
+				'user':instance,
+				'message':"You have not subscribed for any newspaper till now. start your subscription today!!",
+				'nbar' : 'account',
+				}
+		else:
+			context={
+				'user':instance,
+				'message':"You have not subscribed for any newspaper till now. start your subscription today!!",
+				'nbar' : 'account',
+			}
 	return render(request,"subscription.html",context)
 
 @login_required(login_url='/users/login/')
 def editsubscription(request):
 	#import ipdb; ipdb.set_trace()
+	papers = Newspapers.objects.all()
+	papers_list = []
+	for item in papers:
+		papers_list.append(str(item.title))
 	user = request.user
 	user = get_object_or_404(Users,u_name=user)
 	queryset=Subscription.objects.all()
@@ -67,30 +163,78 @@ def editsubscription(request):
 		instance=Subscription.objects.get(sub_user=user)
 		if request.method == "GET":
 			form = SubscriptionForm(request.POST or None, instance=instance)
-			context={
-				"form" : form
-			}
+			if UserInfo.objects.filter(user_link=user).exists():
+				userinfo=UserInfo.objects.get(user_link=user)
+				context={
+					'pic':userinfo.profile_pic,
+					"name":userinfo.full_name,
+					"form" : form,
+					'user':instance,
+					'nbar' : 'account',
+					'papers':papers_list,
+					'abar':'editsubscription',
+				}
+			else:
+				context={
+					"form" : form,
+					'user':instance,
+					'nbar' : 'account',
+					'papers':papers_list,
+					'abar':'editsubscription',
+				}
 		else:
 			form = SubscriptionForm(request.POST or None, instance=instance)
 			if form.is_valid():
-				instance= form.save(commit=False)
+				instances= form.save(commit=False)
 
-				instance.save()
+				instances.save()
 				form.save_m2m()
-			context={
-				"form":form
-			}
+			if UserInfo.objects.filter(user_link=user).exists():
+				userinfo=UserInfo.objects.get(user_link=user)
+				context={
+					'pic':userinfo.profile_pic,
+					"name":userinfo.full_name,
+					"form":form,
+					'user':instance,
+					'nbar' : 'account',
+					'papers':papers_list,
+					'abar':'editsubscription',
+				}
+			else:
+				context={
+					"form":form,
+					'user':instance,
+					'nbar' : 'account',
+					'papers':papers_list,
+					'abar':'editsubscription',
+				}
 			return render(request,"home.html",context)
+	else:
+		if queryset.filter(sub_user=user).exists():
+			instance=Subscription.objects.get(sub_user=user)
+		else:
+			instance=None
+		if UserInfo.objects.filter(user_link=user).exists():
+			userinfo=UserInfo.objects.get(user_link=user)
+			context={
+				'pic':userinfo.profile_pic,
+				"name":userinfo.full_name,
+				'user':instance,
+				'message' : "you have not subscribed for any newspaper till now. ",
+				'papers':papers_list,
+				}
+		else:
+			context={'message' : "you have not subscribed for any newspaper till now. ",'papers':papers_list}
 	context.update(csrf(request))
 	return render(request,"subscribe.html",context)
 
 @login_required(login_url='/users/login/')
 def Bill(request):
-	#import ipdb; ipdb.set_trace()
+	import ipdb; ipdb.set_trace()
 	bill=0
 	user=request.user
-	user=Users.objects.get(u_name=user)
-	user=Subscription.objects.get(sub_user=user)
+	userr=Users.objects.get(u_name=user)
+	user=Subscription.objects.get(sub_user=userr)
 	today=datetime.date.today()
 	start=user.start_date
 	days=(today-start).days
@@ -107,9 +251,24 @@ def Bill(request):
 		paper=Newspapers.objects.get(title=paper)
 		amount=paper.price
 		bill+=days*amount
-	context={
-		"bill":bill
-	}
+	if UserInfo.objects.filter(user_link=userr).exists():
+		userinfo=UserInfo.objects.get(user_link=userr)
+		context={
+			'pic':userinfo.profile_pic,
+			"name":userinfo.full_name,
+			"bill":bill,
+			'user':user,
+			'nbar' : 'account',
+			'abar':'bill',
+			'days':days,
+		}
+	else:
+		context={
+			"bill":bill,
+			'nbar' : 'account',
+			'user':user,
+			'abar':'bill',
+		}
 	context.update(csrf(request))
 	return render(request,"bill.html",context)
 
@@ -119,8 +278,8 @@ def Bill(request):
 def allpapers(request):
 	#import ipdb; ipdb.set_trace()
 	user = request.user
-	user=Users.objects.get(u_name=user)
-	user=Subscription.objects.get(sub_user=user)
+	userr=Users.objects.get(u_name=user)
+	user=Subscription.objects.get(sub_user=userr)
 
 	queryset=user.sub_paper.all()
 	querylist=[]
@@ -128,12 +287,38 @@ def allpapers(request):
 		querylist.append(str(paper))
 
 	length=len(queryset)
-	context={
-		"queryset": queryset,
-		"length":length,
-		"querylist":querylist
+	add = user.address
+	mob_no= user_info.mob_no
+	duration = user_info.joining_date
+	if UserInfo.objects.filter(user_link=userr).exists():
+		userinfo=UserInfo.objects.get(user_link=userr)
+		context={
+			'pic':userinfo.profile_pic,
+			"name":userinfo.full_name,
+			"queryset": queryset,
+			"length":length,
+			'user':user,
+			"querylist":querylist,
+			"address":add,
+			"duration":duration,
+			"mob_no":mob_no,
+			'nbar' : 'account',
+			'abar':'subscription',
 
-	}
+		}
+	else:
+		context={
+			"queryset": queryset,
+			"length":length,
+			"querylist":querylist,
+			"address":add,
+			'user':user,
+			"duration":duration,
+			"mob_no":mob_no,
+			'nbar' : 'account',
+			'abar':'subscription',
+
+		}
 	context.update(csrf(request))
 	return render(request,"allpaper.html",context)
 
@@ -142,15 +327,29 @@ def paperbill(request,paper):
 	#import ipdb; ipdb.set_trace()
 	paper=Newspapers.objects.get(title=paper)
 	user=request.user
-	user=Users.objects.get(u_name=user)
-	user=Subscription.objects.get(sub_user=user)
+	userr=Users.objects.get(u_name=user)
+	user=Subscription.objects.get(sub_user=userr)
 	today=datetime.date.today()
 	start=user.start_date
 	days=(today-start).days
 	bill=days*paper.price
-	context={
-		"bill": bill,
-	}
+	if UserInfo.objects.filter(user_link=userr).exists():
+		userinfo=UserInfo.objects.get(user_link=userr)
+		context={
+			'pic':userinfo.profile_pic,
+			"name":userinfo.full_name,
+			"bill": bill,
+			'nbar' : 'account',
+			'abar':'bill',
+			'user':user,
+			}
+	else:
+		context={
+			"bill": bill,
+			'user':user,
+			'nbar' : 'account',
+			'abar':'bill',
+		}
 	return render(request,"paperbill.html",context)
 
 @login_required(login_url="/user/login")
@@ -158,8 +357,8 @@ def allbills(request):
 	#import ipdb; ipdb.set_trace()
 	bill=0
 	user=request.user
-	user=Users.objects.get(u_name=user)
-	user=Subscription.objects.get(sub_user=user)
+	userr=Users.objects.get(u_name=user)
+	user=Subscription.objects.get(sub_user=userr)
 	today=datetime.date.today()
 	start=user.start_date
 	days=(today-start).days
@@ -180,12 +379,29 @@ def allbills(request):
 		amount=paper.price
 		bill+=days*amount
 		querylist.append(str(queryset[0]))
-	context={
-		"bill":bill,
-		"querylist":querylist,
-		"days": days,
-		"queryset": queryset
-	}
+	if UserInfo.objects.filter(user_link=userr).exists():
+		userinfo=UserInfo.objects.get(user_link=userr)
+		context={
+			'pic':userinfo.profile_pic,
+			"name":userinfo.full_name,
+			"bill":bill,
+			"querylist":querylist,
+			"days": days,
+			'user':user,
+			"queryset": queryset,
+			'nbar' : 'account', 
+			'abar' : 'bill',
+			}
+	else:
+		context={
+			"bill":bill,
+			"querylist":querylist,
+			"days": days,
+			'user':user,
+			"queryset": queryset,
+			'nbar' : 'account', 
+			'abar' : 'bill',
+		}
 
 	context.update(csrf(request))
 	return render(request,"allbills.html",context)
