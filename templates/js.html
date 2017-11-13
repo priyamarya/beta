@@ -39,3 +39,17 @@
 
 </script>
 
+<script>
+function validateForm() {
+    var x = document.forms["req-contact-form"]["contact"].value;
+    y=x.toString().length;
+    if (y != 10) {
+        alert("please enter a valid no.");
+        return false;
+    }
+    else{
+      alert("Thank you for request. We will get back to you as soon as possible.")
+      return true;
+    }
+}
+</script>

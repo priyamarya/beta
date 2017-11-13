@@ -1,7 +1,7 @@
 {% extends "account.html"%}
 {% load staticfiles %}
 {% block data%}
-
+{% if user is not None %}
 
 <div class="" style="padding:20px">
 	<div style="text-align: center;">
@@ -48,7 +48,10 @@
 		</div>
 	</div>
 </div>
-
+{% else %}
+<p>You have not subscribed for any newspapers till now.. </p>
+<a class="btn btn-lg btn-success" href="{% url 'subscribe' %}" role="button">Get Started</a>
+{%endif%}
 {%endblock data%}
 
 

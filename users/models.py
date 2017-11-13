@@ -23,7 +23,8 @@ class Users(models.Model):
 
 	email_id = models.EmailField(
 		null = False,
-		blank = False
+		blank = False,
+		unique=True
 		)
 	
 	joining_date = models.DateTimeField(

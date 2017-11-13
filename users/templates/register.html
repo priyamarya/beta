@@ -33,8 +33,13 @@
 					<input class="btn btn-primary" type="submit" href='{%url "login"%}' value="Log In" style="width:100%">
 
 				</form>
+<<<<<<< HEAD
 
 
+=======
+				
+			
+>>>>>>> upstream/master
 
 		</div>
       </div>
@@ -54,8 +59,13 @@
     <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo" data-parent="#accordion">
       <div class="card-body" style="display:flex;">
         <div class='col-md-6' style="text-align:center;margin:auto">
+<<<<<<< HEAD
 
 			<form class="form-signin" method="POST">
+=======
+		
+			<form class="form-signin" action="{% url 'signup'%}" method="POST">
+>>>>>>> upstream/master
 				{% csrf_token %}
 				<label class="sr-only">Name</label>
 				<input class='form-control' type = "text"  placeholder= 'Name' name='u_name' required autofocus>
@@ -75,8 +85,13 @@
 				<br><br>
 				<button  class="btn btn-primary " type="submit" style="width:100%">Sign up</button>
 			</form>
+<<<<<<< HEAD
 
 
+=======
+			
+	
+>>>>>>> upstream/master
 	</div>
       </div>
     </div>

@@ -52,9 +52,16 @@
 				<div>
 					<h4>Let Us Help You</h4>
 					<p style="color:#0f1626;">Do let us know how we can help you. Please feel free to email us with your issue as the subject line or give us a call at anytime, any day. ( the details are in the contact section )</p>
+<<<<<<< HEAD
 					<form>
 						<input  id="contact-no" type="text" name="contact" placeholder="Enter your contact no." >
 						<button type="submit" class="btn btn-lg btn-success btn-custom" name="request-contact">Request Contact</button>
+=======
+					<form action="{% url 'req_contact' %} " method="POST" onSubmit="return validateForm();" name="req-contact-form">{%csrf_token%}
+						<input  id="contact-no" type="text" name="contact" placeholder="Enter your contact no." required>
+						<button type="submit" href="{% url 'req_contact' %} " class="btn btn-lg btn-success btn-custom" name="request-contact"    id="requect_contact"> request contact</button>
+					</form>	
+>>>>>>> upstream/master
 				</div>
 			</div>
 		</div>
@@ -85,4 +92,19 @@
 			<!-- /.row -->
 	</div>
 </div>
+<script>
+function validateForm() {
+    var x = document.forms["req-contact-form"]["contact"].value;
+    y=x.toString().length;
+    if (y != 10) {
+        alert("please enter a valid no.");
+        return false;
+    }
+    else{
+      alert("Thank you for request. We will get back to you as soon as possible.")
+      return true;
+    }
+}
+</script>
+
 {% endblock homecontent %}

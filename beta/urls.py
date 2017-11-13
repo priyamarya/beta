@@ -41,6 +41,7 @@ urlpatterns = [
     url(r'^contact/$',contact.views.contact_entry, name="contact_entry"),
     url(r'^work/$',contact.views.work_entry, name="work"),
     url(r'^newspapers/$',newspapers.views.all_newspapers, name="all_newspapers"),
+    url(r'^req-contact/$',home.views.req_contact, name="req_contact"),
 
     
 ]

@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render,HttpResponseRedirect
 from users.models import Users
-
+from django.conf import settings
+from django.core.mail import send_mail
 
 # Create your views here.
 def Home(request):
@@ -42,6 +43,21 @@ def Home2(request):
 	return render(request,"home.html",context)
 
 
+def req_contact(request):
+	if request.method =="POST":
+		mob_no = request.POST.get("contact")
+		subject = "contact requested"
+		message = "Customer with contact no. "+mob_no+" has requested to connect."
+		from_email = settings.EMAIL_HOST_USER
+		to_email = [settings.EMAIL_HOST_USER]
+		send_mail(
+			subject,
+			message,
+			from_email,
+			to_email,
+			fail_silently=False,
+		)
+	return HttpResponseRedirect("/")
 
 def home(request):
 	
