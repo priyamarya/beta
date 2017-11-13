@@ -1,18 +1,18 @@
-{% extends "base.html" %}
+{% extends "home_base.html" %}
 {% load staticfiles%}
 {% block homecontent %}
 <div class="container">
 	<div class="site_head col-md-12 sol-sm-12 gap"  >
 		<div class="site_head_child" >
-			
+
 				<h1 style="font-weight: bold; font-size: 45px;color:#f7f5e6;">Hello. We are Sightnext.</h1>
 				<span class="sub_head">We provide a smarter and better way to get your daily newspaper without any hassles and worries.</span>
 				{% if request.user.username %}
-					<p style="margin-top: 0px"><a class="btn btn-lg btn-success" href="{% url 'account' %}" role="button">My account</a></p>	
+					<p style="margin-top: 0px"><a class="btn btn-lg btn-success" href="{% url 'account' %}" role="button">My account</a></p>
 				{%else%}
 					<p style="margin-top: 0px"><a class="btn btn-lg btn-success" href="{% url 'signup' %}" role="button">Get Started</a></p>
 				{% endif %}
-				
+
 		</div>
 	</div>
 </div>
@@ -25,7 +25,7 @@
 					<div style="text-align: center;">
 						<p style="">
 							We are here for a change.<br>We provide an easy and efficient way to manage your newspaper subscription.<br> We have an inclusive list of national and regional newspapers, that you can choose from to be delivered at your doorsteps.<br> We have a flexible system that allows you to cancel or order additional newspapers for any duration.<br> And you can pay for these <br> Anytime, Anywhere - as per your convenience.
-					
+
 						</p>
 					</div>
 				</div>
@@ -54,7 +54,7 @@
 					<p style="color:#0f1626;">Do let us know how we can help you. Please feel free to email us with your issue as the subject line or give us a call at anytime, any day. ( the details are in the contact section )</p>
 					<form>
 						<input  id="contact-no" type="text" name="contact" placeholder="Enter your contact no." >
-						<button type="submit" class="btn btn-lg btn-success btn-custom" name="request-contact">Request Contact</button>	
+						<button type="submit" class="btn btn-lg btn-success btn-custom" name="request-contact">Request Contact</button>
 				</div>
 			</div>
 		</div>
@@ -64,9 +64,9 @@
 <div class="container" >
 	<div class=" row container marketing gap" style="margin-left:0px;">
 		<!-- Three columns of text below the carousel -->
-			
+
 				<div class="col-lg-4 mid" style="background-color: rgba(255, 255, 255, 0.46);">
-				 
+
 				  <h4>Cashback & offers</h4>
 				  <p class="para">Exciting offers to gain double the value you pay and much more with stipulated discount on every newspaper.<br>
 				  	<br><br><br></p>
