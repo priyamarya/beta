@@ -24,7 +24,7 @@ def newsletter_entry(request):
 			fail_silently=False,
 		)
 		subject = "New Subscription."
-		message = email+" has joined newsletter reciever"
+		message = recipent_email+" has joined newsletter reciever"
 		from_email = settings.EMAIL_HOST_USER
 		to_email = [settings.EMAIL_HOST_USER]
 		send_mail(
@@ -35,7 +35,7 @@ def newsletter_entry(request):
 			fail_silently=False,
 		)
 	context.update(csrf(request))
-	return render_to_response('home.html',context)
+	return HttpResponseRedirect("/")
 
 def contact_entry(request):
 	#import ipdb; ipdb.set_trace()

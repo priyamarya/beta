@@ -24,6 +24,7 @@ def user_vendor(request,username):
 		context={
 			'nbar':'profile',
 			'vendor': all_vendors,}
-
+	else:
+		context={'abar':'vendor',}
 	context.update(csrf(request))
 	return render(request,"vendor.html",context)

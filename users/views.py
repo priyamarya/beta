@@ -13,8 +13,8 @@ from .forms import UserInfoForm
 # Create your views here.
 
 def register(request):
-	context = {}
 	#import ipdb; ipdb.set_trace()
+	context = {}
 	if request.method == 'POST':
 		try:
 			name = request.POST.get("u_name")
@@ -110,6 +110,7 @@ def login(request):
 	else:
 		name = request.POST.get('u_name')
 		password = request.POST.get('password')
+
 		user = auth.authenticate(username = name, password = password)
 		if request.user.is_authenticated():
 			context={
@@ -141,7 +142,7 @@ def login(request):
 					
 					
 					context.update(csrf(request))
-					return HttpResponseRedirect("/users/%s/profile/"%name)
+					return HttpResponseRedirect("/details/mysubscription/")
 				else:
 					context = {
 						'status' : "Account Deactivated",
@@ -279,7 +280,7 @@ def profile_update(request,username):
 
 @login_required(login_url='users/(?P<username>[\w.@+-]+)/')
 def profile_edit(request,username):
-	#import ipdb; ipdb.set_trace()
+	# import ipdb; ipdb.set_trace()
 	title = "Edit Our Profile Here"
 
 	instance=get_object_or_404(User,username=username)
@@ -352,7 +353,7 @@ def profile_edit(request,username):
 				'user':user1,
 			}
 			context.update(csrf(request))
-			return render(request, "profile entry.html",context)
+			return HttpResponseRedirect("/users/%s/"%username)
 				
 	context.update(csrf(request))
 	return render(request, "profile.html",context)

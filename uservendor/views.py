@@ -18,6 +18,7 @@ def user_vendor(request,username):
 		vendor=str(item.vendor)
 	context={
 		'nbar':'profile',
+		'abar':'vendor',
 		'vendor': vendor,}
 
 	context.update(csrf(request))

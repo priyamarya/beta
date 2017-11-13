@@ -1,4 +1,4 @@
-from django.shortcuts import render,get_object_or_404
+from django.shortcuts import render,get_object_or_404,HttpResponseRedirect
 from .forms import SubscriptionForm
 from django.contrib.auth.models import User
 from django.template.context_processors import csrf
@@ -12,14 +12,14 @@ from newspapers.models	 import Newspapers
 
 @login_required(login_url='/users/login/')
 def Subscribe(request):
-	#import ipdb; ipdb.set_trace()
-	papers = Newspapers.objects.all()
-	papers_list=[]
-	queryset=Subscription.objects.all()
+	import ipdb; ipdb.set_trace()
+	# papers = Newspapers.objects.all()
+	# papers_list=[]
+	# queryset=Subscription.objects.all()
 	user = request.user
 	user = Users.objects.get(u_name=user)
-	for item in papers:
-		papers_list.append(str(item.title))
+	# for item in papers:
+	# 	papers_list.append(str(item.title))
 	if request.method == "POST":
 		form = SubscriptionForm(request.POST or None)
 		
@@ -30,34 +30,35 @@ def Subscribe(request):
 			instance.start_date = str(datetime.date.today())
 			instance.save()
 			form.save_m2m()
-			if queryset.filter(sub_user=user).exists():
-				instance=Subscription.objects.get(sub_user=user)
-			else:
-				instance=None	
+			# if queryset.filter(sub_user=user).exists():
+			# 	instance=Subscription.objects.get(sub_user=user)
+			# else:
+			# 	instance=None	
 			if UserInfo.objects.filter(user_link=user).exists():
 				userinfo=UserInfo.objects.get(user_link=user)
 				context = {
 					'title' : "thhanksss",
-					'user':instance,
+					# 'user':instance,
 					'pic':userinfo.profile_pic,
 					"name":userinfo.full_name,
 					'nbar' : 'account',
-					'papers':papers_list,
+					# 'papers':papers_list,
 					'abar':'subscription',
 				}
 			else:
 				context = {
 						'title' : "thhanksss",
 						'nbar' : 'account',
-						'user':instance,
-						'papers':papers_list,
+						# 'user':instance,
+						# 'papers':papers_list,
 						'abar':'subscription',
 					}
+			return HttpResponseRedirect('/details/mysubscription')
 		else:
-			if queryset.filter(sub_user=userr).exists():
-				instance=Subscription.objects.get(sub_user=user)
-			else:
-				instance=None
+			# if queryset.filter(sub_user=userr).exists():
+			# 	instance=Subscription.objects.get(sub_user=user)
+			# else:
+				# instance=None
 			if UserInfo.objects.filter(user_link=user).exists():
 				userinfo=UserInfo.objects.get(user_link=user)
 				context = {
@@ -69,23 +70,24 @@ def Subscribe(request):
 				context={'title': "sorry",'abar':'subscription',}
 	else:
 		form = SubscriptionForm(request.POST or None)
-		if queryset.filter(sub_user=user).exists():
-			instance=Subscription.objects.get(sub_user=user)
-		else:
-			instance=None
+		# if queryset.filter(sub_user=user).exists():
+		# 	instance=Subscription.objects.get(sub_user=user)
+		# else:
+		# 	instance=None
 		if UserInfo.objects.filter(user_link=user).exists():
 				userinfo=UserInfo.objects.get(user_link=user)
 				context = {
-					'title' : "<t></t>hanksss",
+					'title' : "thanksss",
 					'pic':userinfo.profile_pic,
-					'user':instance,
+					# 'user':instance,
 					'title':"please fill the form.",
 					'form':form,
 					'nbar' : 'account',
-					'papers':papers_list,
+					# 'papers':papers_list,
+					'abar':'subscription',
 					}
 		else:
-			context = {'title':"please fill the form.",'form':form,'nbar' : 'account','papers':papers_list}
+			context = {'title':"please fill the form.",'form':form,'nbar' : 'account',	'abar':'subscription',}
 		context.update(csrf(request))
 	return render(request,'subscribe.html',context)
 
@@ -114,7 +116,7 @@ def subscription(request):
 				"message":"You have subscribed for",
 				"address":user.address,
 				'nbar' : 'account',
-				'abar':'subscription',
+				'abar': 	'subscription',
 			}
 		else:
 			context={
@@ -140,22 +142,25 @@ def subscription(request):
 				'user':instance,
 				'message':"You have not subscribed for any newspaper till now. start your subscription today!!",
 				'nbar' : 'account',
+				'abar':'subscription',
 				}
 		else:
 			context={
 				'user':instance,
 				'message':"You have not subscribed for any newspaper till now. start your subscription today!!",
 				'nbar' : 'account',
+				'abar':'subscription',
 			}
 	return render(request,"subscription.html",context)
 
 @login_required(login_url='/users/login/')
 def editsubscription(request):
 	#import ipdb; ipdb.set_trace()
-	papers = Newspapers.objects.all()
-	papers_list = []
-	for item in papers:
-		papers_list.append(str(item.title))
+	# papers = Newspapers.objects.all()
+	# papers_list = []
+	# for item in papers:
+	# 	papers_list.append(str(item.title))
+	form = SubscriptionForm(request.POST or None)
 	user = request.user
 	user = get_object_or_404(Users,u_name=user)
 	queryset=Subscription.objects.all()
@@ -171,7 +176,7 @@ def editsubscription(request):
 					"form" : form,
 					'user':instance,
 					'nbar' : 'account',
-					'papers':papers_list,
+					# 'papers':papers_list,
 					'abar':'editsubscription',
 				}
 			else:
@@ -179,7 +184,7 @@ def editsubscription(request):
 					"form" : form,
 					'user':instance,
 					'nbar' : 'account',
-					'papers':papers_list,
+					# 'papers':papers_list,
 					'abar':'editsubscription',
 				}
 		else:
@@ -191,13 +196,14 @@ def editsubscription(request):
 				form.save_m2m()
 			if UserInfo.objects.filter(user_link=user).exists():
 				userinfo=UserInfo.objects.get(user_link=user)
+
 				context={
 					'pic':userinfo.profile_pic,
 					"name":userinfo.full_name,
 					"form":form,
 					'user':instance,
 					'nbar' : 'account',
-					'papers':papers_list,
+					# 'papers':papers_list,
 					'abar':'editsubscription',
 				}
 			else:
@@ -205,7 +211,7 @@ def editsubscription(request):
 					"form":form,
 					'user':instance,
 					'nbar' : 'account',
-					'papers':papers_list,
+					# 'papers':papers_list,
 					'abar':'editsubscription',
 				}
 			return render(request,"home.html",context)
@@ -220,11 +226,13 @@ def editsubscription(request):
 				'pic':userinfo.profile_pic,
 				"name":userinfo.full_name,
 				'user':instance,
+				'form':form,
 				'message' : "you have not subscribed for any newspaper till now. ",
-				'papers':papers_list,
+				# 'papers':papers_list,
+				'abar':'editsubscription',
 				}
 		else:
-			context={'message' : "you have not subscribed for any newspaper till now. ",'papers':papers_list}
+			context={'message' : "you have not subscribed for any newspaper till now. ",'form':form,'abar':'editsubscription',}
 	context.update(csrf(request))
 	return render(request,"subscribe.html",context)
 
